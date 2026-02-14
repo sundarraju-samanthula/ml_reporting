@@ -56,15 +56,36 @@ def home():
     })
 
 
+# @app.route("/predict", methods=["POST"])
+# def predict():
+#     try:
+#         data = request.get_json()
+
+#         if not data:
+#             return jsonify({"status": "error", "message": "No JSON received"}), 400
+
+#         result = predict_waste(data)
+
+#         return jsonify({
+#             "status": "success",
+#             "result": result
+#         })
+
+#     except Exception as e:
+#         return jsonify({
+#             "status": "error",
+#             "message": str(e)
+#         }), 400
 @app.route("/predict", methods=["POST"])
 def predict():
     try:
         data = request.get_json()
 
-        if not data:
-            return jsonify({"status": "error", "message": "No JSON received"}), 400
+        print("Received data:", data)
 
         result = predict_waste(data)
+
+        print("Prediction result:", result)
 
         return jsonify({
             "status": "success",
@@ -72,10 +93,12 @@ def predict():
         })
 
     except Exception as e:
+        print("🔥 ERROR:", str(e))   # <<< IMPORTANT
         return jsonify({
             "status": "error",
             "message": str(e)
         }), 400
+
 
 
 if __name__ == "__main__":
